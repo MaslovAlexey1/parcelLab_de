@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:10.5
+    networks:
+      - default
+    restart: always
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - 5438:5432
+    volumes:
+      - ./sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
+  
+  load_data:
+    build: .
+    networks:
+      - default
+    depends_on:
+      - postgres
+    restart: "on-failure"
