@@ -4,6 +4,7 @@ import datetime
 import psycopg2
 import json
 import os
+from config import config
 
 HOLIDAYS_TOKEN = os.environ.get('HOLIDAYS_TOKEN')
 
@@ -24,14 +25,8 @@ def insert_raw_holidays(country_code, holidays_json):
     sql = """ insert into holidays_raw(country_code, holidays_json, created_at, updated_at) values(%s, %s, %s, %s)  """
     conn = None
     try:
-        conn = psycopg2.connect(
-            host="postgres",
-            port="5432",
-            # host="localhost",
-            # port="5438",
-            database="postgres",
-            user="postgres",
-            password="postgres")
+        params = config()
+        conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql, (country_code, 
                         json.dumps(holidays_json), 

@@ -4,6 +4,7 @@ import datetime
 import psycopg2
 import json
 import os
+from config import config
 
 WEATHER_TOKEN = os.environ.get('WEATHER_TOKEN')
 
@@ -21,14 +22,8 @@ def insert_raw_weather(city, weather_json):
     sql = """ insert into weather_raw(city, weather_json, created_at, updated_at) values(%s, %s, %s, %s)  """
     conn = None
     try:
-        conn = psycopg2.connect(
-            host="postgres",
-            port="5432",
-            # host="localhost",
-            # port="5438",
-            database="postgres",
-            user="postgres",
-            password="postgres")
+        params = config()
+        conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql, (city, 
                         json.dumps(weather_json), 

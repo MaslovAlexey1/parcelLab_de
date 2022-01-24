@@ -4,6 +4,7 @@ import datetime
 import psycopg2
 import json
 import os
+from config import config
 
 def get_city_weather(city):
     """Returns last available weather for city from database.
@@ -40,14 +41,8 @@ def get_city_weather(city):
                 """
     conn = None
     try:
-        conn = psycopg2.connect(
-            host="postgres",
-            port="5432",
-            # host="localhost",
-            # port="5438",
-            database="postgres",
-            user="postgres",
-            password="postgres")
+        params = config()
+        conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql.format(city))
         row = cur.fetchone()
