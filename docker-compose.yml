@@ -17,7 +17,7 @@ services:
     volumes:
       - ./sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
   
-  load_data:
+  app:
     build: .
     networks:
       - default

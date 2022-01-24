@@ -14,7 +14,8 @@ def pull_holidays(contry_codes):
 def pull_country_holidays(country_code):
     now = datetime.datetime.now()
     year = str(now.year-1) # Free accounts are limited to last year's historical data only.
-    response = requests.get("https://holidayapi.com/v1/holidays?pretty&key="+HOLIDAYS_TOKEN+"&country="+country_code+"&year="+year)
+    req = "https://holidayapi.com/v1/holidays?pretty&key="+HOLIDAYS_TOKEN+"&country="+country_code+"&year="+year
+    response = requests.get(req)
     
     insert_raw_holidays(country_code, response.json())
     # print(response.json())

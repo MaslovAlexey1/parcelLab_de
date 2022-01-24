@@ -59,3 +59,52 @@ SELECT
   updated_at 
 FROM holidays_stage
 ;
+
+
+CREATE TABLE "weather_raw" (
+  "id" SERIAL PRIMARY KEY,
+  "city" varchar,
+  "weather_json" json,
+  "created_at" timestamp NOT NULL,
+  "updated_at" timestamp NOT NULL
+);
+
+CREATE VIEW vw_city_weather as
+WITH weather_raw_rn AS (
+     SELECT wr.id,
+        wr.weather_json,
+        row_number() OVER (PARTITION BY wr.weather_json -> 'sys' ->> 'country', wr.weather_json ->> 'name'  ORDER BY wr.updated_at DESC) AS rn,
+        wr.created_at,
+        wr.updated_at
+       FROM weather_raw wr
+      WHERE (wr.weather_json ->> 'cod'::text) = '200'::text
+    ),
+ city_weather_json AS (
+	 SELECT
+		concat(wrr.weather_json ->> 'name', ',', wrr.weather_json -> 'sys' ->> 'country') AS city,
+		wrr.weather_json->'coord' AS coord,
+		wrr.weather_json->'weather'->>0 AS weather,
+		wrr.weather_json->'main' AS main,
+		wrr.weather_json->'visibility' AS visibility,
+		wrr.weather_json->'wind' AS wind,
+		wrr.weather_json->'clouds' AS clouds,
+		wrr.created_at,
+		wrr.updated_at
+	FROM
+		weather_raw_rn wrr
+	WHERE
+		rn = 1)
+SELECT 
+cwj.city,
+cwj.main->'temp' AS temp,
+cwj.main->'feels_like' AS temp_feels_like,
+cwj.main->'temp_min' AS temp_min,
+cwj.main->'temp_max' AS temp_max,
+cwj.main->'pressure' AS pressure,
+cwj.main->'humidity' AS humidity,
+cwj.visibility,
+cwj.wind->'speed' AS wind_speed,
+cwj.created_at,
+cwj.updated_at
+FROM city_weather_json cwj
+;
