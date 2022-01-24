@@ -44,11 +44,15 @@ python getWeather.py Munich,DE
 
 
 ## Cron
-Cron is already started with jobs
+Cron is already started with jobs:
 ```sh
-*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "Munich,DE"
-*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "London,GB"
-*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "Paris,FR"
+*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "Munich,DE;London,GB;Paris,FR"
 *       *       *       *       *       /usr/local/bin/python /code/app/pullHolidays.py "DE,GB,FR,RU,IT"
+*       *       *       *       *       /usr/local/bin/python /code/app/getWeather.py "Munich,DE"
+```
+
+Check result of last job:
+```sh
+tail -f /code/app/log/weather.txt 
 ```
 

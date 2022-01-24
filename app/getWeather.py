@@ -24,7 +24,7 @@ def get_city_weather(city):
         * wind_speed (float): Wind speed. meter/sec.
     
     Example:
-        (6.53, 6.53, 5.68, 7.36, 1031, 72, 10000, 0.89)
+        -0.46    -0.46    -3.55    0.55    1034    92    10000    0.89
     """
     sql = """   SELECT 
                     temp,
@@ -53,7 +53,10 @@ def get_city_weather(city):
         row = cur.fetchone()
 
         while row is not None:
-            print(row)
+            result_weather = '  '.join(map(str, row))
+            print(result_weather)
+            with open('/code/app/log/weather.txt', 'a') as the_file:
+                the_file.write(result_weather+'\n')
             row = cur.fetchone()
 
         cur.close()
