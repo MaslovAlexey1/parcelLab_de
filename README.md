@@ -23,23 +23,23 @@ docker exec -it app sh
 ## What can we do
 * extract GB holidays from holidayapi.com and load to holidays_raw postgres table
 ```sh
-python pullHolidays.py GB
+python app/pullHolidays.py GB
 ```
 * extract GB, DE and FR holidays from holidayapi.com and load to holidays_raw postgres table
 ```sh
-python pullHolidays.py GB,DE,FR
+python app/pullHolidays.py GB,DE,FR
 ```
 * extract London,GB current weather from openweathermap.org and load to weather_raw postgres table
 ```sh
-python pullWeather.py London,GB
+python app/pullWeather.py London,GB
 ```
 * extract London,GB, Paris,FR and Munich,DE current weather from openweathermap.org and load to weather_raw postgres table
 ```sh
-python pullWeather.py 'London,GB;Paris,FR;Munich,DE'
+python app/pullWeather.py 'London,GB;Paris,FR;Munich,DE'
 ```
 * get the last available weather from postgres for Munich,DE
 ```sh
-python getWeather.py Munich,DE
+python app/getWeather.py Munich,DE
 ```
 
 
