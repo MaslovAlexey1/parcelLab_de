@@ -12,12 +12,15 @@ W_API((openweathermap.org))--pullWeather.py--->C[weather_raw]  --> D{vw_weather}
 
 ## How to run
 
-> docker compose up -d
-> docker exec -it app sh
+```sh
+ docker compose up -d
+```
+```sh
+docker exec -it app sh
+```
 
 Then you can check cron, which is already started
 
-> crontab -l
-
-Check postgres
-
+```sh
+crontab -l
+```

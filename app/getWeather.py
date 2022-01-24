@@ -9,7 +9,7 @@ def get_city_weather(city):
     """Returns last available weather for city from database.
 
     Args:
-        city (string): City name and country code divided by comma, Please, refer to ISO 3166 for the country codes.
+        city (string): City name and country code divided by comma. Please, refer to ISO 3166 for the country codes.
 
     Returns:
         string: Current weather information divided by comma in metric format:
