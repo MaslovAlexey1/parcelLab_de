@@ -2,6 +2,7 @@ version: "3.9"
 services:
   postgres:
     image: postgres:10.5
+    container_name: db
     networks:
       - default
     restart: always
@@ -15,10 +16,11 @@ services:
     ports:
       - 5438:5432
     volumes:
-      - ./sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
+      - ./app/sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
   
   app:
     build: .
+    container_name: app
     networks:
       - default
     depends_on:

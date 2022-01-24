@@ -1,0 +1,4 @@
+*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "Munich,DE"
+*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "London,GB"
+*       *       *       *       *       /usr/local/bin/python /code/app/pullWeather.py "Paris,FR"
+*       *       *       *       *       /usr/local/bin/python /code/app/pullHolidays.py "DE,GB,FR,RU,IT"

@@ -1,6 +1,6 @@
-load_data.py
 .DS_Store
 .vscode/
+/dbt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

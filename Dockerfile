@@ -4,7 +4,7 @@ WORKDIR /code
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev busybox-initscripts
 RUN apk add openrc --no-cache
 
-COPY cronjob /etc/crontabs/root
+COPY app/cronjob /etc/crontabs/root
 
 
 COPY requirements.txt requirements.txt
