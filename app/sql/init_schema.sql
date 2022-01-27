@@ -6,6 +6,10 @@ CREATE TABLE "holidays_raw" (
   "updated_at" timestamp NOT NULL
 );
 
+CREATE INDEX holidays_raw_country_code_idx ON public.holidays_raw (country_code);
+CREATE INDEX holidays_raw_updated_at_idx ON public.holidays_raw (updated_at);
+
+
 CREATE VIEW "vw_holidays" as 
 WITH holidays_raw_rn AS (
 	SELECT 
@@ -68,6 +72,8 @@ CREATE TABLE "weather_raw" (
   "created_at" timestamp NOT NULL,
   "updated_at" timestamp NOT NULL
 );
+
+CREATE INDEX weather_raw_updated_at_idx ON public.weather_raw (updated_at);
 
 CREATE VIEW vw_city_weather as
 WITH weather_raw_rn AS (
